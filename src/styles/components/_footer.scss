@@ -1,0 +1,97 @@
+.footer {
+  text-align: center;
+
+  .sub {
+    padding: 5rem 0;
+    background: #2a2a2a;
+    font-size: 1.5rem;
+    color: #ccc;
+    font-weight: 300;
+  }
+  .sub-inne {
+    width: 35rem;
+    margin: 0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;  
+    @include sm-dp {
+      width: 20rem; 
+    }
+
+    p {
+      flex: 0 0 100%;
+    }
+
+    input {
+      flex: 0 0 45%;
+      font-size: 1rem;
+      font-weight: 400;
+      padding-left: 1rem;
+      border-radius: 5px;
+      height: 3rem;
+      background: #4d4d4d;
+      color: #808080;
+      border: none;
+      &:focus {
+        outline: none;
+      }
+      @include sm-dp{
+        flex: 0 0 100%;
+      }
+    }
+
+    .input1 {
+      @extend input;
+      margin: 0 auto 1rem auto;
+    }
+
+    .input2 {
+      @extend input;
+      margin: 0 auto 0 auto;
+    }
+
+    .sub-button {
+      color: #FFF;
+      font-weight: 400;
+      margin: 1.5rem auto 0 auto;
+      flex: 0 0 35%;
+      height: 3rem;
+      background: green;
+      border: none;
+      border-radius: 25px; 
+      background-color: $light-green;
+      &:focus{
+        outline: none;
+      }
+      @include sm-dp {
+        flex: 0 0 60%;
+      }
+    }
+  }
+
+  .copyright {
+    .icon {
+      font-size: 1.5rem;
+      span {
+        color: $light-green;
+      }
+    }
+
+    .cp {
+      font-size: 1rem;
+      color: $grey-text;
+      margin-bottom: 0.7rem;
+
+    }
+    
+    a{
+      display: inline-block;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      &:active, &:visited, &:link, &:hover{
+        color: $grey-text;
+      }
+    }
+    
+  }
+}

@@ -1,0 +1,119 @@
+.header {
+  margin-top: 1rem;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap:wrap;
+
+  .site-name {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-left: 2rem;
+  
+    span {
+      color: $light-green;
+    }
+  }
+  
+  .toggle-icon {
+  
+    display: none;
+  
+    &:active, &:hover, &:visited, &:link{
+      text-decoration: none;
+      color: black;
+    }
+    @include sm-dp {
+      display: initial;
+      font-size: 2rem;
+      margin-right: 2rem;
+    }
+  }
+  
+  .main-bar {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    
+    ul {
+      transition: all .2s ease;
+      height: 2.5rem;
+      overflow: hidden;
+      list-style: none;
+      padding: 0;
+      display:flex;
+      flex-wrap:wrap;
+      align-items: center;
+  
+      @include sm-dp {
+        margin: 0rem 2rem;
+        height: 10rem;
+      }
+    }
+  
+    li {
+      margin-right: 2.5rem;
+      &:last-child {
+        margin-right: 0;
+      }
+  
+      @include sm-dp {
+        flex: 0 0 100%;      
+        padding: 0.5rem 0;
+        border-bottom: 2px solid $grey-text;
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+    .navlink {
+      text-decoration: none;
+      &:hover {
+        color:$dark-text;
+      }
+      &:visited, &:link {
+        color: $grey-text;
+      }
+    }
+  
+    @include sm-dp {
+      flex: 0 0 100%; 
+    }
+  }
+  .active {
+    color: $dark-text !important;
+  }
+  .search-bar {
+    input {
+      width: 10rem;
+      height: 2rem;
+      border-radius: 5px;
+      border:2px solid $grey-text;
+      padding-left: 0.5rem;
+      padding-right: 1.5rem;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      position: relative;
+      left: -1.7rem;
+      border: none;
+      background:none;
+      color: $grey-text;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  
+  .collapsed {
+    @include sm-dp {
+      &.main-bar {
+        ul {
+          height: 0.1px;
+        }
+      }
+    }
+  }
+}

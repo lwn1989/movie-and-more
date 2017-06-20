@@ -1,0 +1,37 @@
+.sliderList {
+  margin: 0;  
+  padding:0;
+
+  .navLink {
+    text-decoration: none;
+    &:link, &:active, &:focus, &:hover{
+      color: $light-text;
+    }
+  }
+  .slider {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 3rem 0;
+    align-items: center;
+    
+    .poster-img {
+      flex: 0 0 14rem; 
+      margin-right: 1rem;
+      img {
+        width: 25rem;
+        border-radius: 5px;
+      }
+    }
+    .intro {
+      flex: 0 0 20rem;
+      margin-left: 1rem;
+      height: 13rem;
+      .title {
+        font-size: 1.5rem;
+        color: $light-text;
+      }
+    }
+  }
+
+}

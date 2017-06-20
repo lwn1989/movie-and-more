@@ -1,9 +1,11 @@
 $grey-text: #8c8c8c;
 $dark-text: #404040;
 $light-green: #6df08c;
+$light-text: #cccccc;
 @import "./mixins/mixins";
 @import "./components/nav";
 @import "./components/footer";
+@import "./components/_movieSlider.scss";
 
 body {
   font-family: 'Open Sans', sans-serif;

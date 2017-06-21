@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import movieGenres from '../../data/MovieGenresList.json'
+// import movieGenres from '../../data/MovieGenresList.json'
 import { NavLink } from 'react-router-dom'
 
 @observer
@@ -26,22 +26,52 @@ export default class MovieSlider extends React.Component {
 
 @observer
 export class SingleSlider extends React.Component {
+  vote (rate) {
+    var fullStarCount = Math.floor(rate * 1.0 / 2)
+    var halfStarCount = (rate * 1.0 / 2) - fullStarCount >= 0.5
+    var greyStarCount
+    var icons = []
+    const greenStarStyle = {
+      color: '#6df08c'
+    }
+    const greyStarStyle = {
+      color: '#8c8c8c'
+    }
+    for (var i = 0; i < fullStarCount; i++) {
+      icons.push(<i key={'h' + i} className='fa fa-star' style={greenStarStyle} />)
+    }
+    if (halfStarCount) {
+      icons.push(<i key={'gr'} className='fa fa-star' style={greyStarStyle} />)
+      icons.push(<i key={'hg'} className='fa fa-star-half fgIcon' />)
+    }
+    if (halfStarCount) {
+      greyStarCount = 5 - fullStarCount - 1
+    } else {
+      greyStarCount = 5 - fullStarCount
+    }
+    if (greyStarCount !== 0) {
+      for (var j = 0; j < greyStarCount; j++) {
+        icons.push(<i key={'g' + j} className='fa fa-star' style={greyStarStyle} />)
+      }
+    }
+    return icons
+  }
   render () {
     const { movieInfo } = this.props
     const bkImage = {
-      background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "'), no-repeat, center center, fixed"
+      background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "')"
     }
     return (
-      <NavLink className='navLink' to={'/movie/' + movieInfo.id}>
-        <div className='slider' style={bkImage}>
-          <div className='poster-img'>
-            <img src={'https://image.tmdb.org/t/p/w500/' + movieInfo.poster_path} />
-          </div>
-          <div className='intro'>
-            <div className='title'>{movieInfo.title}</div>
-          </div>
+      <div className='slider' style={bkImage}>
+        <NavLink className='navLink poster-img' to={'/movie/' + movieInfo.id}>
+          <img src={'https://image.tmdb.org/t/p/w500/' + movieInfo.poster_path} />
+        </NavLink>
+        <div className='intro'>
+          <div className='title'>{movieInfo.title}</div>
+          <div className='vote'>{this.vote(movieInfo.vote_average)}</div>
+          <p className='overview'>{movieInfo.overview}</p>
         </div>
-      </NavLink>
+      </div>
     )
   }
 }

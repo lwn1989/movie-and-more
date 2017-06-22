@@ -22,19 +22,18 @@
     background-size: cover !important;
 
     .poster-img {
-      max-width: 30rem;
-      min-width: 20rem;
-      width: calc( 100% - 65rem ); 
-      margin-right: 2rem;
+      height: calc( 100vh - 10rem ); 
+      width: 60vh; 
       img {
-        width: 100%;
+        height: 100%;
+        width: auto;
+        max-width: 100%;
         border-radius: 5px;
       }
     }
     .intro {
       width: 23rem;
       margin-left: 1rem;
-      height: 20rem;
       .title {
         font-size: 1.5rem;
         color: $light-text;
@@ -50,7 +49,7 @@
           left: -1.44rem;
           margin-right: -0.8rem;
         }
-      
+
         i {
           display: inline-block;
           margin: 0 0.25rem;
@@ -58,7 +57,24 @@
       }
       .overview {
         margin-top: 1rem;
-        color: $grey-text;
+        color: $light-text;
+        font-weight: 300;
+      }
+      .genres {
+        margin-top: 2rem;
+        font-weight: 600;
+        color: white;
+        .genreName {
+          display: inline-block;
+          &:after{
+            content:',\00a0';
+          }
+          &:last-child {
+            &:after {
+              content:'|';
+            }
+          }
+        }
       }
     }
   }

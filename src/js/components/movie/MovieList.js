@@ -11,7 +11,7 @@ export default class MovieList extends React.Component {
       <ul>
         { popularMovies.map((mov, index) => {
           return (
-            <li key={mov.id}>{mov.original_title}</li>
+            <li key={index}>{mov.original_title}</li>
           )
         })
         }

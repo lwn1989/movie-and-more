@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap:wrap;
+  font-family: 'Muli', sans-serif;
 
   .site-name {
     font-size: 2rem;
@@ -60,7 +61,7 @@
       @include sm-dp {
         flex: 0 0 100%;      
         padding: 0.5rem 0;
-        border-bottom: 2px solid $grey-text;
+        border-bottom: 1px solid $grey-text;
         &:last-child {
           border: none;
         }
@@ -85,10 +86,11 @@
   }
   .search-bar {
     input {
+      font-family: 'Muli', sans-serif;
       width: 10rem;
       height: 2rem;
       border-radius: 5px;
-      border:2px solid $grey-text;
+      border:2px solid $light-green;
       padding-left: 0.5rem;
       padding-right: 1.5rem;
       &:focus {
@@ -110,6 +112,7 @@
   .collapsed {
     @include sm-dp {
       &.main-bar {
+
         ul {
           height: 0.1px;
         }

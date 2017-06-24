@@ -2,23 +2,70 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import movieGenres from '../../data/MovieGenresList.json'
 import { NavLink } from 'react-router-dom'
+import { Carousel } from 'react-responsive-carousel'
 
 @observer
 export default class MovieSlider extends React.Component {
   render () {
     const { store } = this.props
     const {popularMovies} = store
-    var firstMovie = []
-    popularMovies.forEach((movie, index) => {
-      if (index === 0) {
-        firstMovie.push(movie)
-      }
-    })
+    var mostPopMovies = (popularMovies == null) ? [[], [], [], [], []] : popularMovies.slice(0, 5)
     return (
-      <ul className='sliderList'>
-        {firstMovie.map((movie, index) => <li key={index} className='most-pop'><SingleSlider movieInfo={movie} key={index} /></li>)
-        }
-      </ul>
+      <div className='sliderList'>
+        <Carousel showThumbs={false} interval={6000} stopOnHover={false} transitionTime={1000} showStatus={false} autoPlay emulateTouch infiniteLoop>
+          <div>
+            <SingleSlider movieInfo={mostPopMovies[0]} />
+          </div>
+          <div>
+            <SingleSlider movieInfo={mostPopMovies[1]} />
+          </div>
+          <div>
+            <SingleSlider movieInfo={mostPopMovies[2]} />
+          </div>
+          <div>
+            <SingleSlider movieInfo={mostPopMovies[3]} />
+          </div>
+          <div>
+            <SingleSlider movieInfo={mostPopMovies[4]} />
+          </div>
+        </Carousel>
+        {store.pendingRequests > 0 ? <marquee direction='right'>Loading...</marquee> : null}
+        <ArrowDown />
+      </div>
+    )
+  }
+}
+
+export class ArrowDown extends React.Component {
+  constructor () {
+    super()
+    this.state = {arrow1: 'fa fa-angle-down', arrow2: 'fa fa-angle-down', arrow3: 'fa fa-angle-down'}
+  }
+
+  componentWillMount () {
+    this.toggleArrowSelect()
+  }
+
+  toggleArrowSelect () {
+    var counter = 0
+    setInterval(() => {
+      var arrowNum = (counter % 3) + 1
+      this.setState({
+        arrow1: (arrowNum === 1) ? 'fa fa-angle-down select' : 'fa fa-angle-down',
+        arrow2: (arrowNum === 2) ? 'fa fa-angle-down select' : 'fa fa-angle-down',
+        arrow3: (arrowNum === 3) ? 'fa fa-angle-down select' : 'fa fa-angle-down'
+      })
+      counter++
+    }, 1000)
+  }
+
+  render () {
+    return (
+      <div className='arrowDown'>
+        <i className={this.state.arrow1} id='arrow1' />
+        <i className={this.state.arrow2} id='arrow2' />
+        <i className={this.state.arrow3} id='arrow3' />
+      </div>
     )
   }
 }
@@ -75,42 +122,35 @@ export class SingleSlider extends React.Component {
       for (var y = 0; y < 3; y++) {
         top3Cast.push(<span key={y}>{castList[y].name}</span>)
       }
-      console.log(top3Cast)
       return top3Cast
     } else {
       return top3Cast
     }
   }
   render () {
-    const showTop3Cast = (castList) => {
-      var top3Cast = []
-      if (castList != null) {
-        for (var y = 0; y < 3; y++) {
-          top3Cast.push(<span key={y}>{castList[y].name}</span>)
-        }
-        return top3Cast
-      } else {
-        return top3Cast
-      }
-    }
     const { movieInfo } = this.props
-    const bkImage = {
-      background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "')"
-    }
-    return (
-      <div className='slider' style={bkImage}>
-        <NavLink className='navLink poster-img' to={'/movie/' + movieInfo.id}>
-          <img src={'https://image.tmdb.org/t/p/w500/' + movieInfo.poster_path} />
-        </NavLink>
-        <div className='intro'>
-          <div className='title'>{movieInfo.title}</div>
-          <div className='vote'>{this.vote(movieInfo.vote_average)}</div>
-          <p className='overview'>{movieInfo.overview}</p>
-          <p className='cast'>{showTop3Cast(movieInfo.cast)}</p>
-          <p className='genres'>{this.showGenre(movieInfo.genre_ids)}</p>
-          <p className='runtime'>{movieInfo.runtime}</p>
+    if (movieInfo == null) {
+      return (<div />)
+    } else {
+      const bkImage = {
+        background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "')"
+      }
+      return (
+        <div className='sliderSp' style={bkImage}>
+          <NavLink className='navLink poster-img' to={'/movie/' + movieInfo.id}>
+            <img src={'https://image.tmdb.org/t/p/w500/' + movieInfo.poster_path} />
+          </NavLink>
+          <div className='intro'>
+            <div className='title'>{movieInfo.title}</div>
+            <div className='vote'>{this.vote(movieInfo.vote_average)}</div>
+            <p className='cast'>{this.showTop3Cast(movieInfo.cast)}</p>
+            <p className='overview'>{movieInfo.overview}</p>
+            <p className='genres'>{this.showGenre(movieInfo.genre_ids)}</p>
+            <p className='runtime'>{movieInfo.runtime}</p>
+            <p className='language'>{movieInfo.original_language.toUpperCase()}</p>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }

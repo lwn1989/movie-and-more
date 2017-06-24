@@ -1,7 +1,7 @@
 .sliderList {
+  @import 'carousel';
   margin: 0;  
   padding:0;
-  list-style: none;
 
   .navLink {
     text-decoration: none;
@@ -9,39 +9,58 @@
       color: $light-text;
     }
   }
-  .slider {
+  .sliderSp {
+    text-align: left !important;
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    padding: 3rem 0.5rem;
+    padding: 3rem 0.5rem 3rem 0.5rem;
     align-items: center;
-    height: calc( 100vh - 11.4rem );
+    height: calc( 100vh - 5.5rem );
     width: 100%;
     background-repeat: no-repeat !important;
     background-position: center center !important;
     background-size: cover !important;
 
+    @include sm-dp{
+      height: calc( 100vh - 3.2rem ) !important;
+    }
+
     .poster-img {
-      height: calc( 100vh - 10rem ); 
-      width: 60vh; 
+      display: flex;
+      align-items: center;
+      height: calc( 100vh - 17rem ); 
+      width: 45vh; 
       img {
         height: 100%;
         width: auto;
         max-width: 100%;
         border-radius: 5px;
+
+        @include sm-dp {
+          width: 100%;
+          height: auto;
+        }
       }
     }
     .intro {
-      width: 23rem;
+      width: 50vh;
       margin-left: 1rem;
+      margin-right: 0.5rem;
       .title {
-        font-size: 1.5rem;
+        font-size: 3vh;
         color: $light-text;
         display: inline-block;
       }
       .vote{
         display: inline-block;
-        margin-left: 2rem;
+        margin-left: 1rem;
+        
+        @include sm-dp {
+          display: block;
+          margin-left: 0;
+          margin-top: 1rem;
+        }
 
         .fgIcon {
           color: $light-green;
@@ -56,27 +75,112 @@
         }
       }
       .overview {
-        margin-top: 1rem;
+        font-size: 1.9vh;
+        margin-top: 1.5rem;
         color: $light-text;
         font-weight: 300;
+        @include sm-dp {
+          font-size: 2.3vh;
+        }
       }
       .genres {
-        margin-top: 2rem;
-        font-weight: 600;
+        display: inline-block;
+        margin-top: 1rem;
+        font-weight: 300;
         color: white;
+        margin-bottom: 0;
         .genreName {
+          font-size: 1.9vh;
           display: inline-block;
           &:after{
             content:',\00a0';
           }
           &:last-child {
             &:after {
-              content:'|';
+              content:'\00a0|\00a0';
             }
+          }
+          @include sm-dp {
+            font-size: 2.3vh;
           }
         }
       }
+      .runtime {
+        font-size: 1.9vh;
+        font-weight: 300;
+        margin-top: 0;
+        display: inline-block;
+        color: white;
+        &:after{
+          content: '\00a0MIN\00a0|\00a0';
+        }
+        @include sm-dp {
+          font-size: 2.3vh;
+        }
+      }
+      .cast {
+        color: $light-text;
+        font-size: 2.3vh;
+        margin-top: 0.5rem;
+        span {
+          &:last-child {
+            &:after {
+              content: '';
+            }
+          }
+          &:after {
+            content: ', ';
+          }
+        }
+        @include sm-dp {
+          font-size: 2.7vh;
+        }
+      }
+      .language {
+        color:white;
+        font-size: 1.9vh;
+        font-weight: 300;
+        margin-top: 0;
+        display: inline-block;
+        color: white;
+        &:after{
+          content: '\00a0';
+        }
+        @include sm-dp {
+          font-size: 2.3vh;
+        }
+       
+      }
     }
   }
-
+  .arrowDown {
+    position: absolute;
+    color: $grey-text;
+    font-size: 2rem;
+    font-weight: 300;
+    bottom: -0.2rem;
+    right: 10%;
+    i {
+      display: block;
+      margin: 0;
+    }
+    .select {
+      color: white;
+    }
+    .arrow {
+      position: absolute;
+    }
+    #arrow1 {
+      @extend .arrow;
+      bottom: 0.65rem;
+    }
+    #arrow2 {
+      @extend .arrow;
+      bottom: 0.3rem;
+    }
+    #arrow3 {
+      @extend .arrow;
+      bottom: 0;
+    }
+  }
 }

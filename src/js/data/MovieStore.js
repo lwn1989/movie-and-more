@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { observable, extendObservable } from 'mobx'
+import { observable } from 'mobx'
 
 class MovieStore {
   constructor () {
@@ -17,20 +17,21 @@ class MovieStore {
     axios.get(popUrl).then((response) => {
       this.pendingRequests --
       this.popularMovies = response.data.results.slice()
-      this.popularMovies.forEach((movie, index) => {
-        console.log(movie)
+      var tmpPopularMovies = response.data.results.slice()
+      tmpPopularMovies.forEach((movie, index) => {
         const fullInfoUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=' + this.apiKey + '&language=en-US'
         const castUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '/credits?api_key=' + this.apiKey
         this.pendingRequests ++
         axios.get(fullInfoUrl).then((response) => {
-          extendObservable(this.popularMovies[index], {'runtime': response.data.runtime})
-          if (index === 19) {
-            console.log('update finish')
-            console.log(this.popularmovies)
-          }
+          movie.runtime = response.data.runtime
           axios.get(castUrl).then((response) => {
             this.pendingRequests --
-            extendObservable(this.popularMovies[index], {'cast': response.data.cast.slice(0, 10)})
+            if (index === 19) {
+              console.log('update finish')
+              this.popularMovies = tmpPopularMovies.slice()
+              console.log(this.popularMovies)
+            }
+            movie.cast = response.data.cast.slice(0, 10)
           }).catch((error) => {
             console.log('fetch cast')
             console.log(error)

@@ -7,18 +7,34 @@ class MovieStore {
   }
 
   @observable popularMovies = []
+  @observable playMovies = []
+  @observable topMovies = []
   @observable movieCollections = []
   @observable pendingRequests = 0
   @observable searchResult = []
 
-  getPopularMovies () {
+  getMovieList (opt) {
     const popUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=' + this.apiKey + '&language=en-US&page=1'
+    const playUrl = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + this.apiKey + '&language=en-US&page=1'
+    const topUrl = 'https://api.themoviedb.org/3/movie/top_rated?api_key=' + this.apiKey + '&language=en-US&page=1'
+    var url
+    switch (opt) {
+      case 'pop':
+        url = popUrl
+        break
+      case 'play':
+        url = playUrl
+        break
+      case 'top':
+        url = topUrl
+        break
+    }
+
     this.pendingRequests ++
-    axios.get(popUrl).then((response) => {
+    axios.get(url).then((response) => {
       this.pendingRequests --
-      this.popularMovies = response.data.results.slice()
-      var tmpPopularMovies = response.data.results.slice()
-      tmpPopularMovies.forEach((movie, index) => {
+      var tmpMovies = response.data.results.slice()
+      tmpMovies.forEach((movie, index) => {
         const fullInfoUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=' + this.apiKey + '&language=en-US'
         const castUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '/credits?api_key=' + this.apiKey
         this.pendingRequests ++
@@ -28,7 +44,13 @@ class MovieStore {
             this.pendingRequests --
             if (index === 19) {
               console.log('update finish')
-              this.popularMovies = tmpPopularMovies.slice()
+              if (opt === 'pop') {
+                this.popularMovies = tmpMovies.slice()
+              } else if (opt === 'play') {
+                this.playMovies = tmpMovies.slice()
+              } else {
+                this.topMovies = tmpMovies.slice()
+              }
               console.log(this.popularMovies)
             }
             movie.cast = response.data.cast.slice(0, 10)
@@ -49,5 +71,7 @@ class MovieStore {
 }
 
 var movieStore = window.store = new MovieStore()
-movieStore.getPopularMovies()
+movieStore.getMovieList('pop')
+movieStore.getMovieList('play')
+movieStore.getMovieList('top')
 export default movieStore

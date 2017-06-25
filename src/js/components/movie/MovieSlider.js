@@ -56,7 +56,7 @@ export class ArrowDown extends React.Component {
         arrow3: (arrowNum === 3) ? 'fa fa-angle-down select' : 'fa fa-angle-down'
       })
       counter++
-    }, 1000)
+    }, 500)
   }
 
   render () {
@@ -127,6 +127,15 @@ export class SingleSlider extends React.Component {
       return top3Cast
     }
   }
+  showDate (date) {
+    const Month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
+    var dateList = date.split('-')
+    var year = dateList[0]
+    var monthAbb = Month[parseInt(dateList[1])]
+    var day = dateList[2]
+    return (day + ' ' + monthAbb + ' ' + year)
+  }
+
   render () {
     const { movieInfo } = this.props
     if (movieInfo == null) {
@@ -148,6 +157,7 @@ export class SingleSlider extends React.Component {
             <p className='genres'>{this.showGenre(movieInfo.genre_ids)}</p>
             <p className='runtime'>{movieInfo.runtime}</p>
             <p className='language'>{movieInfo.original_language.toUpperCase()}</p>
+            <p className='date'>{this.showDate(movieInfo.release_date)}</p>
           </div>
         </div>
       )

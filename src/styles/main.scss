@@ -2,10 +2,13 @@ $grey-text: #8c8c8c;
 $dark-text: #404040;
 $light-green: #6df08c;
 $light-text: #cccccc;
+$main-font: 'Muli', sans-serif;
 @import "./mixins/mixins";
 @import "./components/nav";
 @import "./components/footer";
 @import "./components/_movieSlider.scss";
+@import "./components/_movieList.scss";
+@import "./components/_singleListItem.scss";
 
 body {
   font-family: 'Muli', sans-serif;

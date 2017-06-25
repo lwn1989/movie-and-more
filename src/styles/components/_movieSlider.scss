@@ -31,6 +31,9 @@
       align-items: center;
       height: calc( 100vh - 17rem ); 
       width: 45vh; 
+      &:hover {
+        border: 3px solid transparent;
+      }
       img {
         height: 100%;
         width: auto;
@@ -136,6 +139,15 @@
           font-size: 2.7vh;
         }
       }
+      .date{
+        display: inline-block;
+        color: white;
+        font-size: 1.9vh;
+        font-weight: 300;
+        @include sm-dp {
+          font-size: 2.3vh;
+        }
+      }
       .language {
         color:white;
         font-size: 1.9vh;
@@ -144,7 +156,7 @@
         display: inline-block;
         color: white;
         &:after{
-          content: '\00a0';
+          content: '\00a0|\00a0';
         }
         @include sm-dp {
           font-size: 2.3vh;

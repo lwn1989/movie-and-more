@@ -7,7 +7,16 @@ import RateStars from './RateStars'
 export default class SingleList extends React.Component {
   constructor () {
     super()
-    this.state = {toggled: true, text: 'Show More'}
+    this.state = {toggled: true, text: 'Show More', width: 0, height: 0}
+  }
+  componentDidMount =() => {
+    window.addEventListener('resize', this.updateDimensions)
+  }
+  componentWillUnmount= () => {
+    window.removeEventListener('resize', this.updateDimensions)
+  }
+  updateDimensions= () => {
+    this.setState({width: window.innerWidth, height: window.innerHeight})
   }
   toggleItems () {
     this.setState({

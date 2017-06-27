@@ -18,7 +18,7 @@ export default class RateStars extends React.Component {
     const halfStarStyle = {
       color: '#6df08c',
       position: 'relative',
-      left: '-1.08rem',
+      left: '-1.10rem',
       marginRight: '-0.48rem'
     }
     for (var i = 0; i < fullStarCount; i++) {

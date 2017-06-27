@@ -6,6 +6,10 @@ import { Carousel } from 'react-responsive-carousel'
 
 @observer
 export default class MovieSlider extends React.Component {
+  constructor () {
+    super()
+    this.arrowFlash = null
+  }
   render () {
     const { store } = this.props
     const {popularMovies} = store
@@ -45,10 +49,13 @@ export class ArrowDown extends React.Component {
   componentWillMount () {
     this.toggleArrowSelect()
   }
+  componentWillUnmount () {
+    clearInterval(this.arrowFlash)
+  }
 
   toggleArrowSelect () {
     var counter = 0
-    setInterval(() => {
+    this.arrowFlash = setInterval(() => {
       var arrowNum = (counter % 3) + 1
       this.setState({
         arrow1: (arrowNum === 1) ? 'fa fa-angle-down select' : 'fa fa-angle-down',

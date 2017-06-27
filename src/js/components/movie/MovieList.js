@@ -10,7 +10,7 @@ export default class MovieList extends React.Component {
     return (
       <div className='movieList'>
         <SingleList listTitle={'Popular Movies'} contents={popularMovies.slice()} opt={'pop'} />
-        <SingleList listTitle={'In Theater'} contents={playMovies.slice()} opt={'play'} />
+        <SingleList listTitle={'In Theaters'} contents={playMovies.slice()} opt={'play'} />
         <SingleList listTitle={'Top Rated'} contents={topMovies.slice()} opt={'top'} />
       </div>
     )

@@ -22,7 +22,8 @@ export default (env = defaultEnv) => ({
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.min.js'
+    filename: 'bundle.min.js',
+    publicPath: '/'
   },
 
   plugins: [

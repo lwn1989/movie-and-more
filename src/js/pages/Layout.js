@@ -1,7 +1,9 @@
 import React from 'react'
-import Movie from '../components/movie/Movie'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
+import MovieIndex from './MovieIndex.js'
+import SingleItemPage from './SingleItemPage.js'
+import TvShow from './TvShow'
 import Footer from '../components/Layout/Footer'
 import Nav from '../components/Layout/Nav'
 // import movieStore from '../data/MovieStore.js'
@@ -9,11 +11,16 @@ import Nav from '../components/Layout/Nav'
 // import Movie from './Movie'
 // import TvShow from './TvShow'
 
-const Layout = () => {
+const Layout = (props) => {
   return (
     <div>
       <Nav />
-      <Route exact path='/' component={Movie} />
+      <Route exact path='/' component={MovieIndex} />
+      <Switch>
+        <Route path='/movie/:itemId' component={SingleItemPage} />
+        <Route path='/movie' component={MovieIndex} />
+      </Switch>
+      <Route path='/tvShow' component={TvShow} />
       <Footer />
     </div>
   )

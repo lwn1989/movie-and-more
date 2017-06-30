@@ -30,6 +30,7 @@
       display: flex;
       align-items: center;
       height: calc( 100vh - 17rem ); 
+      max-height: 40rem;
       width: 45vh; 
       &:hover {
         border: 3px solid transparent;

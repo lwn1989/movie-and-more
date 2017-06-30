@@ -82,11 +82,19 @@ export class SingleSlider extends React.Component {
   showGenre (genreList) {
     genreList = (genreList == null) ? [] : genreList
     var genreName = []
-    for (var z = 0; z < genreList.length - 1; z++) {
-      var temp = movieGenres.genres.filter((item, index) => {
-        return (item.id === genreList[z])
-      })
-      genreName.push(temp[0].name)
+    if (genreList.length > 0) {
+      if (genreList[0].hasOwnProperty('id')) {
+        for (var i = 0; i < genreList.length - 1; i++) {
+          genreName.push(genreList[i].name)
+        }
+      } else {
+        for (var z = 0; z < genreList.length - 1; z++) {
+          var temp = movieGenres.genres.filter((item, index) => {
+            return (item.id === genreList[z])
+          })
+          genreName.push(temp[0].name)
+        }
+      }
     }
 
     return genreName.map((name, index) => <span className='genreName' key={index}>{name}</span>)
@@ -135,10 +143,10 @@ export class SingleSlider extends React.Component {
     }
   }
   showDate (date) {
-    const Month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
+    const Month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
     var dateList = date.split('-')
     var year = dateList[0]
-    var monthAbb = Month[parseInt(dateList[1])]
+    var monthAbb = Month[parseInt(dateList[1]) - 1]
     var day = dateList[2]
     return (day + ' ' + monthAbb + ' ' + year)
   }
@@ -151,6 +159,7 @@ export class SingleSlider extends React.Component {
       const bkImage = {
         background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "')"
       }
+      const genre = (movieInfo.hasOwnProperty('genre_ids')) ? movieInfo.genre_ids : movieInfo.genres
       return (
         <div className='sliderSp' style={bkImage}>
           <NavLink className='navLink poster-img' to={'/movie/' + movieInfo.id}>
@@ -161,7 +170,7 @@ export class SingleSlider extends React.Component {
             <div className='vote'>{this.vote(movieInfo.vote_average)}</div>
             <p className='cast'>{this.showTop3Cast(movieInfo.cast)}</p>
             <p className='overview'>{movieInfo.overview}</p>
-            <p className='genres'>{this.showGenre(movieInfo.genre_ids)}</p>
+            <p className='genres'>{this.showGenre(genre)}</p>
             <p className='runtime'>{movieInfo.runtime}</p>
             <p className='language'>{movieInfo.original_language.toUpperCase()}</p>
             <p className='date'>{this.showDate(movieInfo.release_date)}</p>

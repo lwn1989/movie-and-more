@@ -1,0 +1,92 @@
+.singleItemPage {
+  .sliderSp {
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    height: 25rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    .poster-img {
+      height: 20rem;
+      width: 15rem;
+      img {
+        height: 100%; 
+        border-radius: 5px;
+      }
+    }
+    .intro {
+      width: 40%;
+      margin-left: 0.5rem;
+      p {
+      }
+      .title {
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+        color: $light-text;
+        display: inline-block;
+      }
+      .vote {
+        display: inline-block;
+        i {
+          margin: 0 0.25rem;
+        } 
+        .fgIcon {
+          color: $light-green;
+          position: relative;
+          left: -1.44rem;
+          margin-right: -0.8rem;
+        }
+      }
+      .cast {
+        font-size: 1.25rem;
+        color: $light-text;
+        span {
+          &:after {
+            content: ',\00a0';
+          }
+          &:last-child {
+            &:after{
+              content: '';
+            }
+          }
+        }
+      }
+      .overview {
+        color: $light-text;
+      }
+      .genres, .runtime, .language, .date {
+        color: white;
+        display: inline-block;
+        margin: 0;
+      }
+      .genres {
+        &:after {
+          content: '\00a0|\00a0'
+        }
+        span {
+          &:after {
+            content: ',\00a0';
+          }
+          &:last-child {
+            &:after {
+              content: '';
+            }
+          }
+        } 
+      }
+      .runtime {
+        &:after {
+          content: '\00a0MIN\00a0|\00a0'
+        }
+      }
+      .language {
+        &:after {
+          content: '\00a0|\00a0'
+        }
+      }
+    }
+  }
+  
+}

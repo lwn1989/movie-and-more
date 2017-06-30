@@ -72,6 +72,10 @@ class MovieStore {
 
 var movieStore = window.store = new MovieStore()
 movieStore.getMovieList('pop')
-movieStore.getMovieList('play')
-movieStore.getMovieList('top')
+setTimeout(() => {
+  movieStore.getMovieList('play')
+}, 300)
+setTimeout(() => {
+  movieStore.getMovieList('top')
+}, 600)
 export default movieStore

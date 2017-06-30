@@ -1,6 +1,7 @@
 import React from 'react'
 import SingleItemStore from '../data/SingleItemStore.js'
 import { observer } from 'mobx-react'
+import { SingleSlider } from '../components/movie/MovieSlider.js'
 
 @observer
 export default class SingleItemPage extends React.Component {
@@ -23,13 +24,12 @@ export default class SingleItemPage extends React.Component {
     const { fullInfo } = this.itemStore
 
     if (this.checkObjEmpty(fullInfo)) {
-      console.log('hi')
       var status = this.itemStore.pendingRequests > 0 ? <marquee direction='right'>Loading...</marquee> : null
       return status
     } else {
       return (
-        <div>
-          {fullInfo.runtime}
+        <div className='singleItemPage'>
+          <SingleSlider movieInfo={fullInfo} />
         </div>
       )
     }

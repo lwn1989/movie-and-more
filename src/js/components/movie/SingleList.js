@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import RateStars from './RateStars'
+import movieGenres from '../../data/MovieGenresList.json'
+import tvGenres from '../../data/TvGenresList.json'
 
 @observer
 export default class SingleList extends React.Component {
@@ -24,6 +26,23 @@ export default class SingleList extends React.Component {
       text: (this.state.text === 'Show More') ? 'Show Less' : 'Show More'
     })
   }
+  showGenre (genresList) {
+    var genresDb = null
+    if (this.props.mediaType === 'mov') {
+      genresDb = movieGenres.genres
+    } else {
+      genresDb = tvGenres.genres
+    }
+    genresList = genresList.length > 2 ? genresList.slice(0, 2) : genresList
+    var genresNames = genresList.map((genreId, index) => {
+      var corrName = genresDb.filter((singleGen) => {
+        return singleGen.id === genreId
+      })
+      return corrName[0].name
+    })
+    return genresNames
+  }
+
   render () {
     const { listTitle, contents, opt } = this.props
     if (contents.length === 0) {
@@ -72,7 +91,9 @@ export default class SingleList extends React.Component {
                     <img src={'https://image.tmdb.org/t/p/w500/' + mov.poster_path} />
                     <p className='listItemTitle'>{mov.title}</p>
                     <RateStars rate={mov.vote_average} />
-                    <p>{mov.runtime.toString() + 'MIN | ' + mov.original_language.toUpperCase()}</p>
+                    <div className='genreContainer'>
+                      { this.showGenre(mov.genre_ids).map((genreName, ind) => <span key={ind} className='genreNames'>{genreName}</span>)}
+                    </div>
                   </NavLink>
                 </li>
               )

@@ -9,9 +9,9 @@ export default class MovieList extends React.Component {
     const { popularMovies, playMovies, topMovies } = store
     return (
       <div className='movieList'>
-        <SingleList listTitle={'Popular Movies'} contents={popularMovies.slice()} opt={'pop'} />
-        <SingleList listTitle={'In Theaters'} contents={playMovies.slice()} opt={'play'} />
-        <SingleList listTitle={'Top Rated'} contents={topMovies.slice()} opt={'top'} />
+        <SingleList mediaType={'mov'} listTitle={'Popular Movies'} contents={popularMovies.slice()} opt={'pop'} />
+        <SingleList mediaType={'mov'} listTitle={'In Theaters'} contents={playMovies.slice()} opt={'play'} />
+        <SingleList mediaType={'mov'} listTitle={'Top Rated'} contents={topMovies.slice()} opt={'top'} />
       </div>
     )
   }

@@ -31,7 +31,7 @@ export default class SingleItemStore {
         axios.get(videoUrl).then((response) => {
           const tmpVideoList = response.data.results.slice(0)
           tmpVideoList.forEach((movie) => {
-            tmpItem.videos.push('https://www.youtube.com/watch?v=' + movie.key)
+            tmpItem.videos.push(movie.key)
           })
           axios.get(recommandUrl).then((response) => {
             tmpItem.recommand = response.data.results.slice(0)

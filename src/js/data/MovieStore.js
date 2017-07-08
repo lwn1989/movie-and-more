@@ -34,35 +34,36 @@ class MovieStore {
     axios.get(url).then((response) => {
       this.pendingRequests --
       var tmpMovies = response.data.results.slice()
-      tmpMovies.forEach((movie, index) => {
-        const fullInfoUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=' + this.apiKey + '&language=en-US'
-        const castUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '/credits?api_key=' + this.apiKey
-        this.pendingRequests ++
-        axios.get(fullInfoUrl).then((response) => {
-          movie.runtime = response.data.runtime
-          axios.get(castUrl).then((response) => {
-            this.pendingRequests --
-            if (index === 19) {
-              console.log('update finish')
-              if (opt === 'pop') {
-                this.popularMovies = tmpMovies.slice()
-              } else if (opt === 'play') {
-                this.playMovies = tmpMovies.slice()
-              } else {
-                this.topMovies = tmpMovies.slice()
+      if (opt === 'play') {
+        this.playMovies = tmpMovies.slice()
+      } else if (opt === 'top') {
+        this.topMovies = tmpMovies.slice()
+      } else {
+        var tmp5Movies = tmpMovies.slice(0, 5)
+        tmp5Movies.forEach((movie, index) => {
+          const fullInfoUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=' + this.apiKey + '&language=en-US'
+          const castUrl = 'https://api.themoviedb.org/3/movie/' + movie.id + '/credits?api_key=' + this.apiKey
+          this.pendingRequests ++
+          axios.get(fullInfoUrl).then((response) => {
+            movie.runtime = response.data.runtime
+            axios.get(castUrl).then((response) => {
+              this.pendingRequests --
+              movie.cast = response.data.cast.slice(0, 10)
+              if (index === 4) {
+                this.popularMovies = tmp5Movies.slice()
+                this.popularMovies = this.popularMovies.concat(tmpMovies.slice(5))
+                console.log('index load finish')
               }
-              console.log(this.popularMovies)
-            }
-            movie.cast = response.data.cast.slice(0, 10)
+            }).catch((error) => {
+              console.log('fetch cast')
+              console.log(error)
+            })
           }).catch((error) => {
-            console.log('fetch cast')
+            console.log('fetch fullinfo')
             console.log(error)
           })
-        }).catch((error) => {
-          console.log('fetch fullinfo')
-          console.log(error)
         })
-      })
+      }
     }).catch((error) => {
       console.log('fetch popularMoivees')
       console.log(error)
@@ -72,10 +73,6 @@ class MovieStore {
 
 var movieStore = window.store = new MovieStore()
 movieStore.getMovieList('pop')
-setTimeout(() => {
-  movieStore.getMovieList('play')
-}, 500)
-setTimeout(() => {
-  movieStore.getMovieList('top')
-}, 1000)
+movieStore.getMovieList('play')
+movieStore.getMovieList('top')
 export default movieStore

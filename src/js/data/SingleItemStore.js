@@ -12,7 +12,7 @@ export default class SingleItemStore {
 
   getItemInfo () {
     var fullInfoUrl, castUrl, tmpItem, videoUrl, recommandUrl
-    if (this.type === 'movie') {
+    if (this.type === 'mov') {
       fullInfoUrl = 'https://api.themoviedb.org/3/movie/' + this.itemId + '?api_key=' + this.apiKey + '&language=en-US'
       castUrl = 'https://api.themoviedb.org/3/movie/' + this.itemId + '/credits?api_key=' + this.apiKey
       videoUrl = 'https://api.themoviedb.org/3/movie/' + this.itemId + '/videos?api_key=' + this.apiKey

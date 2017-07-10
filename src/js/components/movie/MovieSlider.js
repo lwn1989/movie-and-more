@@ -79,13 +79,20 @@ export class ArrowDown extends React.Component {
 
 @observer
 export class SingleSlider extends React.Component {
-  constructor () {
+  constructor (props) {
     super()
+    this.renderCounter = 0
     this.state = {
-      trailer: null,
-      liked: false
+      trailer: <iframe id='trailerDiv' width='0' height='0' />,
+      liked: null
     }
   }
+  componentDidMount () {
+    if (this.props.singleSlide) {
+      this.likeStatus()
+    }
+  }
+
   showGenre (genreList) {
     genreList = (genreList == null) ? [] : genreList
     var genreName = []
@@ -157,34 +164,72 @@ export class SingleSlider extends React.Component {
     var day = dateList[2]
     return (day + ' ' + monthAbb + ' ' + year)
   }
-  playTrailer (trailerList) {
-    var youtubeUrl = 'https://www.youtube.com/embed/' + trailerList[0] + '?playlist='
-    trailerList.shift()
-    trailerList.forEach((mvId) => { youtubeUrl = youtubeUrl + mvId + ',' })
-    youtubeUrl = youtubeUrl + '&autoplay=1'
-    this.setState({trailer: <iframe id='trailerDiv' allowFullScreen='allowFullScreen' width='100%' height='500' src={youtubeUrl} />})
+  playTrailer (youtubeUrl) {
+    this.setState({trailer: <iframe id='trailerDiv' allowFullScreen='allowFullScreen' width='100%' height='500' src={youtubeUrl} >Your Browser does not support iframes</iframe>})
+  }
+
+  likeStatus () {
+    const { movieInfo, mediaType, store } = this.props
+    var collectIndexStatus
+    if (mediaType === 'mov') {
+      collectIndexStatus = store.movieCollections.indexOf(movieInfo.id)
+      this.setState({liked: collectIndexStatus !== -1})
+    } else {
+      collectIndexStatus = store.tvCollections.indexOf(movieInfo.id)
+      this.setState({liked: collectIndexStatus !== -1})
+    }
+  }
+
+  changeLike () {
+    const { movieInfo, mediaType, store } = this.props
+    var collectIndex
+    if (mediaType === 'mov') {
+      collectIndex = store.movieCollections.indexOf(movieInfo.id)
+      if (collectIndex === -1) {
+        store.movieCollections.push(movieInfo.id)
+        this.setState({liked: true})
+      } else {
+        store.movieCollections.splice(collectIndex, 1)
+        this.setState({liked: false})
+      }
+    } else {
+      collectIndex = store.tvCollections.indexOf(movieInfo.id)
+      if (collectIndex === -1) {
+        store.tvCollections.push(movieInfo.id)
+        this.setState({liked: true})
+      } else {
+        store.tvCollections.splice(collectIndex, 1)
+        this.setState({liked: false})
+      }
+    }
   }
 
   render () {
-    const { movieInfo } = this.props
-    const { singleSlide } = this.props
+    const { movieInfo, singleSlide } = this.props
     if (movieInfo == null) {
       return (<div />)
     } else {
+      this.renderCounter += 1
       const bkImage = {
         background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "')"
       }
       var trailerButton = null
       var likeButton = null
       if (singleSlide) {
-        trailerButton = <a href='#trailerDiv' onClick={this.playTrailer.bind(this, movieInfo.videos.slice())} className='trailerButton'><i className='fa fa-film' />Play Trailer</a>
+        var trailerList = movieInfo.videos.results.slice()
+        var youtubeUrl = 'https://www.youtube.com/embed/' + trailerList[0].key + '?playlist='
+        console.log(youtubeUrl)
+        trailerList.shift()
+        trailerList.forEach((mvId) => { youtubeUrl = youtubeUrl + mvId.key + ',' })
+        youtubeUrl = youtubeUrl + '&autoplay=1'
+        trailerButton = <a href='#trailerDiv' onClick={this.playTrailer.bind(this, youtubeUrl)} className='trailerButton'><i className='fa fa-film' />Play Trailer</a>
         if (this.state.liked) {
-          likeButton = (<div className='likeButton'><a>
+          likeButton = (<div className='likeButton' onClick={this.changeLike.bind(this)}><a className='liked'>
             <i className='fa fa-heart' /></a>
-            <span className='tooltip'>Add to collection</span>
+            <span className='tooltip'>Remove from collection</span>
           </div>)
         } else {
-          likeButton = (<div className='likeButton'><a>
+          likeButton = (<div className='likeButton' onClick={this.changeLike.bind(this)}><a className='notLiked'>
             <i className='fa fa-heart' /></a>
             <span className='tooltip'>Add to collection</span>
           </div>)
@@ -211,7 +256,7 @@ export class SingleSlider extends React.Component {
               {likeButton}
             </div>
           </div>
-          {this.state.trailer}
+          { singleSlide ? this.state.trailer : null }
         </div>
       )
     }

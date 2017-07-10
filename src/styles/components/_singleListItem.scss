@@ -62,6 +62,19 @@
         &:hover{
           color: $dark-text;
         }
+        .genreContainer {
+          margin: 0.5rem 0;
+        }
+        .genreNames {
+          &:after {
+            content: ', ';
+          }
+          &:last-child {
+            &:after {
+              content:'';
+            }
+          }
+        }
 
         img {
           margin-bottom: 0.5rem;

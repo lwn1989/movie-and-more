@@ -1,5 +1,10 @@
 .singleItemPage {
+  iframe{
+    border: none;
+    display:block;
+  }
   .sliderSp {
+    overflow: auto;
     background-position: center center !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
@@ -84,6 +89,83 @@
       .language {
         &:after {
           content: '\00a0|\00a0'
+        }
+      }
+      .trailerButton {
+        font-family: $main-font;
+        padding: 8px 13px;
+        border-radius: 30px;
+        display: inline-block;
+        width: 7rem;
+        color: white;
+        font-weight: 300;
+        margin-top: 1rem;
+        border: 2px solid $light-green;
+        background: linear-gradient(to right, $light-green 50%, transparent 50%);
+        background-size: 202% 100%;
+        background-position: right bottom;
+        transition: all 0.7s ease-in-out; 
+        &:focus{
+          outline:none;
+        }
+        i {
+          margin-right: 0.5rem;
+        }
+        &:hover{
+          background-position: left bottom;
+          cursor: pointer;
+        }
+        &:link, &:visited {
+          text-decoration: none;
+        }
+      }
+      .likeButton {
+        display: inline-block;
+        position: relative;
+        margin-left: 1rem;
+        a {
+          transition: all 0.7s ease;
+          border: 1.5px solid $light-green;
+          border-radius: 100%;
+          padding: 8px 10px;
+          &:hover {
+            & + .tooltip  {
+              opacity: 1;
+            }
+          }
+        }
+        a.liked {
+          @extend a;
+          color: #ff4000;
+        }
+        a.notLiked {
+          @extend a;
+          color: $light-text;
+        }
+        .tooltip {
+          display: inline-block;
+          width: 8rem;
+          position: absolute;
+          top: -0.5rem;
+          margin-left: 1rem;
+          padding: 5px;
+          background-color: $light-text;
+          color: $dark-text;
+          border-radius: 3px;
+          margin-right: -3rem; 
+          border:none;
+          opacity: 0;
+          transition: all 1s ease;
+          &:after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            right: 100%;
+            top:35%;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent $light-text transparent transparent;
+          }
         }
       }
     }

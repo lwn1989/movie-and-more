@@ -145,7 +145,6 @@ export class SingleSlider extends React.Component {
     return icons
   }
   showTop3Cast (castList) {
-    console.log(castList)
     var top3Cast = []
     if (castList != null) {
       for (var y = 0; y < 3; y++) {
@@ -218,7 +217,6 @@ export class SingleSlider extends React.Component {
       if (singleSlide) {
         var trailerList = movieInfo.videos.results.slice()
         var youtubeUrl = 'https://www.youtube.com/embed/' + trailerList[0].key + '?playlist='
-        console.log(youtubeUrl)
         trailerList.shift()
         trailerList.forEach((mvId) => { youtubeUrl = youtubeUrl + mvId.key + ',' })
         youtubeUrl = youtubeUrl + '&autoplay=1'
@@ -245,7 +243,7 @@ export class SingleSlider extends React.Component {
             <div className='intro'>
               <div className='title'>{movieInfo.title}</div>
               <div className='vote'>{this.vote(movieInfo.vote_average)}</div>
-              <p className='cast'>{this.showTop3Cast(movieInfo.cast)}</p>
+              <p className='cast'>{this.showTop3Cast(singleSlide ? movieInfo.credits.cast : movieInfo.cast)}</p>
               <p className='overview'>{movieInfo.overview}</p>
               <p className='genres'>{this.showGenre(genre)}</p>
               <p className='runtime'>{movieInfo.runtime}</p>

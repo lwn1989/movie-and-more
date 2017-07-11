@@ -1,4 +1,5 @@
 import React from 'react'
+import SingleList from './SingleList.js'
 import { observer } from 'mobx-react'
 
 @observer
@@ -76,6 +77,8 @@ export default class MainInfo extends React.Component {
         <div className='navContent'>
           { this.navContent }
         </div>
+        <SingleList mediaType={'mov'} listTitle={'Recommendations'} contents={movieInfo.recommendations.results.slice()} opt={'reco'} />
+        <SingleList mediaType={'mov'} listTitle={'Similar Movies'} contents={movieInfo.similar.results.slice()} opt={'simi'} />
       </div>
     )
   }

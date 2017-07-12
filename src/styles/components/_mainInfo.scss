@@ -1,0 +1,97 @@
+.MainInfo {
+  .secNav{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
+    background-color: #f2f2f2;
+    height: 3.2rem;
+    margin-bottom: 0.2rem;
+
+    li {
+      width: 13%; 
+      padding: 1rem 0;
+      color: $dark-text;
+      text-align: center;
+      box-sizing: border-box;
+      &:hover {
+        cursor:pointer;
+        color: black;
+        border-bottom: 3px solid black;
+        background-color: #e6e6e6;
+      }
+
+      @include sm-dp {
+        width: 25%;
+      }
+    }
+  }
+  .navContent {
+    border-bottom: 1px solid $light-text;
+    .normal {
+      list-style: none;
+      padding:0;
+      margin:0;
+      display: flex;
+      flex-wrap: nowrap;
+      width: 100%;
+      overflow: auto;
+    }
+    .cast {
+      @extend .normal;
+      height: 28rem;
+      li {
+        text-align: center;
+        width: 16rem;
+        margin: 0 0.2rem;
+        img {
+          width: 16rem;
+          border-radius:5px;
+        }
+        .castName {
+          display: block;
+          font-weight: bold;
+          font-size: 1.1rem;
+        }
+      }
+    }
+    .image {
+      @extend .normal;
+      overflow-y: hidden;
+      height: 28rem;
+      li {
+        img {
+          height:28rem; 
+        }
+      }
+    }
+    .review {
+      list-style: none;
+      padding: 0;
+      margin: 0 2rem 1rem 2rem;
+
+      li {
+        border: 1.5px solid $light-green;
+        border-radius: 5px;
+        margin: 1rem 0;
+        padding: 1rem;
+
+        .reviewer {
+          display: block;
+          font-weight: bold;
+          font-size: 1.1rem; 
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+    .video {
+      @extend .normal;
+      overflow-y: hidden;
+      li {
+      }
+    }
+
+  }
+}

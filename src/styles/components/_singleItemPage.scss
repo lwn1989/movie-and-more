@@ -60,6 +60,8 @@
       }
       .overview {
         color: $light-text;
+        height: 5rem;
+        overflow: auto;
       }
       .genres, .runtime, .language, .date {
         color: white;
@@ -89,6 +91,45 @@
       .language {
         &:after {
           content: '\00a0|\00a0'
+        }
+      }
+      .noTrailer {
+        display: inline-block;
+        position: relative;
+        &:hover {
+          span {
+            opacity: 1;
+          }
+        }
+        .trailerButton {
+          border-color: $grey-text;
+          background: transparent;
+          width: 9rem;
+        }
+        span {
+          display: inline-block;
+          width: 12rem;
+          position: absolute;
+          top: 4rem;
+          left: 0;
+          padding: 5px;
+          background-color: $light-text;
+          color: $dark-text;
+          border-radius: 3px;
+          margin-right: -3rem; 
+          border:none;
+          opacity: 0;
+          transition: all 1s ease;
+          &:after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            left: 30%;
+            top:-10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent $light-text transparent ;
+          }
         }
       }
       .trailerButton {

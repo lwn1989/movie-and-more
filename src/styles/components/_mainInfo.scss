@@ -41,13 +41,15 @@
     }
     .cast {
       @extend .normal;
-      height: 28rem;
       li {
         text-align: center;
         width: 16rem;
         margin: 0 0.2rem;
+        height: 28rem;
+
         img {
           width: 16rem;
+          height: 24rem;
           border-radius:5px;
         }
         .castName {
@@ -60,7 +62,6 @@
     .image {
       @extend .normal;
       overflow-y: hidden;
-      height: 28rem;
       li {
         img {
           height:28rem; 

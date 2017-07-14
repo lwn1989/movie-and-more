@@ -10,6 +10,13 @@
     font-size: 2rem;
     font-weight: 600;
     margin-left: 2rem;
+    
+    .siteNameNav {
+      text-decoration: none;
+      &:hover {
+        text-shadow: 1px 1px $grey-text;
+      }
+    }
   
     span {
       color: $light-green;

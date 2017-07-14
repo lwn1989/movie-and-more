@@ -83,11 +83,6 @@
           }
         } 
       }
-      .runtime {
-        &:after {
-          content: '\00a0MIN\00a0|\00a0'
-        }
-      }
       .language {
         &:after {
           content: '\00a0|\00a0'

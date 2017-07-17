@@ -20,8 +20,8 @@ export default class MainInfo extends React.Component {
     const { movieInfo } = this.props
     this.navContent = (
       <ul className='cast'>
-        { movieInfo.credits.cast.slice(0, 10).map((cast, index) => (
-          <li key={index}><a target='_blank' href={'https://de.wikipedia.org/wiki/' + cast.name.replace(/\s/g, '_')}><img src={'https://image.tmdb.org/t/p/w500' + cast.profile_path} /></a><span className='castName'>{cast.name}</span><span className='castChar'>{cast.character}</span></li>)) }
+        { movieInfo.credits.cast.length === 0 ? <li style={{fontSize: '1.5rem', width: '30rem', height: '2rem'}}>Sorry, No cast information</li> : movieInfo.credits.cast.slice(0, 10).map((cast, index) => (
+          <li key={index}><a target='_blank' href={'https://de.wikipedia.org/wiki/' + cast.name.replace(/\s/g, '_')}><img src={cast.profile_path === null ? 'https://image.ibb.co/gbbuVF/no_user_profile_picture_whatsapp.jpg' : 'https://image.tmdb.org/t/p/w500' + cast.profile_path} /></a><span className='castName'>{cast.name}</span><span className='castChar'>{cast.character}</span></li>)) }
       </ul>
     )
     this.setState({navContent: 'cast'})
@@ -43,7 +43,7 @@ export default class MainInfo extends React.Component {
     const { movieInfo } = this.props
     this.navContent = (
       <ul className='image'>
-        { movieInfo.images.posters.map((img, index) => (
+        { movieInfo.images.posters.length === 0 && movieInfo.images.backdrops.length === 0 ? <li style={{fontSize: '1.5rem', width: '30rem', marginLeft: '3rem'}}>Sorry, No images</li> : movieInfo.images.posters.map((img, index) => (
           <li key={'p' + index}><a href={'https://image.tmdb.org/t/p/original' + img.file_path}><img src={'https://image.tmdb.org/t/p/w500' + img.file_path} /></a></li>
       )) }
         { movieInfo.images.backdrops.map((img, index) => (
@@ -58,14 +58,13 @@ export default class MainInfo extends React.Component {
     const {movieInfo} = this.props
     this.navContent = (
       <ul className='video'>
-        { movieInfo.videos.results.map((video, index) => (<li key={index}><iframe allowFullScreen='allowFullScreen' width='520' height='300' src={'https://www.youtube.com/embed/' + video.key} /></li>))}
+        { movieInfo.videos.results.length === 0 ? <li style={{fontSize: '1.5rem', width: '30rem', marginLeft: '3rem'}}>Sorry, No videos</li> : movieInfo.videos.results.map((video, index) => (<li key={index}><iframe allowFullScreen='allowFullScreen' width='670' height='450' src={'https://www.youtube.com/embed/' + video.key} /></li>))}
       </ul>
     )
     this.setState({navContent: 'video'})
   }
   render () {
     const { mediaType, movieInfo } = this.props
-    console.log(movieInfo)
     return (
       <div className='MainInfo'>
         <ul className='secNav'>
@@ -77,8 +76,8 @@ export default class MainInfo extends React.Component {
         <div className='navContent'>
           { this.navContent }
         </div>
-        <SingleList mediaType={'mov'} listTitle={'Recommendations'} contents={movieInfo.recommendations.results.slice()} opt={'reco'} />
-        <SingleList mediaType={'mov'} listTitle={'Similar Movies'} contents={movieInfo.similar.results.slice()} opt={'simi'} />
+        <SingleList mediaType={mediaType} listTitle={'Recommendations'} contents={movieInfo.recommendations.results.slice()} opt={'reco'} />
+        <SingleList mediaType={mediaType} listTitle={mediaType === 'mov' ? 'Similar Movies' : 'Similar TV Shows'} contents={movieInfo.similar.results.slice()} opt={'simi'} />
       </div>
     )
   }

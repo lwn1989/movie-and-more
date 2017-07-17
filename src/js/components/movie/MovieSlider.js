@@ -1,42 +1,72 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import movieGenres from '../../data/MovieGenresList.json'
+import tvGenres from '../../data/TvGenresList.json'
 import { NavLink } from 'react-router-dom'
 import { Carousel } from 'react-responsive-carousel'
 
 @observer
 export default class MovieSlider extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.arrowFlash = null
+    this.mediaType = props.store.hasOwnProperty('topMovies') ? 'mov' : 'tv'
   }
   render () {
     const { store } = this.props
-    const {popularMovies} = store
-    var mostPopMovies = (popularMovies == null) ? [[], [], [], [], []] : popularMovies.slice(0, 5)
-    return (
-      <div className='sliderList'>
-        <Carousel showThumbs={false} interval={6000} stopOnHover={false} transitionTime={1000} showStatus={false} autoPlay emulateTouch infiniteLoop>
-          <div>
-            <SingleSlider movieInfo={mostPopMovies[0]} />
-          </div>
-          <div>
-            <SingleSlider movieInfo={mostPopMovies[1]} />
-          </div>
-          <div>
-            <SingleSlider movieInfo={mostPopMovies[2]} />
-          </div>
-          <div>
-            <SingleSlider movieInfo={mostPopMovies[3]} />
-          </div>
-          <div>
-            <SingleSlider movieInfo={mostPopMovies[4]} />
-          </div>
-        </Carousel>
-        {store.pendingRequests > 0 ? <marquee direction='right'>Loading...</marquee> : null}
-        <ArrowDown />
-      </div>
-    )
+    if (this.mediaType === 'mov') {
+      const {popularMovies} = store
+      var mostPopMovies = (popularMovies == null) ? [[], [], [], [], []] : popularMovies.slice(0, 5)
+      return (
+        <div className='sliderList'>
+          <Carousel showThumbs={false} interval={6000} stopOnHover={false} transitionTime={1000} showStatus={false} autoPlay emulateTouch infiniteLoop>
+            <div>
+              <SingleSlider mediaType='mov' movieInfo={mostPopMovies[0]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='mov' movieInfo={mostPopMovies[1]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='mov' movieInfo={mostPopMovies[2]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='mov' movieInfo={mostPopMovies[3]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='mov' movieInfo={mostPopMovies[4]} />
+            </div>
+          </Carousel>
+          {store.pendingRequests > 0 ? <marquee direction='right'>Loading...</marquee> : null}
+          <ArrowDown />
+        </div>
+      )
+    } else {
+      const {popularTvs} = store
+      var mostPopTvs = (popularTvs == null) ? [[], [], [], [], []] : popularTvs.slice(0, 5)
+      return (
+        <div className='sliderList'>
+          <Carousel showThumbs={false} interval={6000} stopOnHover={false} transitionTime={1000} showStatus={false} autoPlay emulateTouch infiniteLoop>
+            <div>
+              <SingleSlider mediaType='tv' movieInfo={mostPopTvs[0]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='tv' movieInfo={mostPopTvs[1]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='tv' movieInfo={mostPopTvs[2]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='tv' movieInfo={mostPopTvs[3]} />
+            </div>
+            <div>
+              <SingleSlider mediaType='tv' movieInfo={mostPopTvs[4]} />
+            </div>
+          </Carousel>
+          {store.pendingRequests > 0 ? <marquee direction='right'>Loading...</marquee> : null}
+          <ArrowDown />
+        </div>
+      )
+    }
   }
 }
 
@@ -86,6 +116,7 @@ export class SingleSlider extends React.Component {
       trailer: <iframe id='trailerDiv' width='0' height='0' />,
       liked: null
     }
+    this.mediaType = props.mediaType
   }
   componentDidMount () {
     if (this.props.singleSlide) {
@@ -98,20 +129,28 @@ export class SingleSlider extends React.Component {
     var genreName = []
     if (genreList.length > 0) {
       if (genreList[0].hasOwnProperty('id')) {
-        for (var i = 0; i < genreList.length - 1; i++) {
+        for (var i = 0; i < genreList.length; i++) {
           genreName.push(genreList[i].name)
         }
       } else {
-        for (var z = 0; z < genreList.length - 1; z++) {
-          var temp = movieGenres.genres.filter((item, index) => {
+        for (var z = 0; z < genreList.length; z++) {
+          var GenreDB = this.mediaType === 'mov' ? movieGenres : tvGenres
+          var temp = GenreDB.genres.filter((item, index) => {
             return (item.id === genreList[z])
           })
+          if (temp.length === 0) {
+            temp = movieGenres.genres.filter((item, index) => {
+              return (item.id === genreList[z])
+            })
+          }
           genreName.push(temp[0].name)
         }
       }
     }
 
-    return genreName.map((name, index) => <span className='genreName' key={index}>{name}</span>)
+    return genreName.map((name, index) => {
+      return <span className='genreName' key={index}>{name}</span>
+    })
   }
 
   vote (rate) {
@@ -144,10 +183,15 @@ export class SingleSlider extends React.Component {
     }
     return icons
   }
+
   showTop3Cast (castList) {
     var top3Cast = []
-    if (castList != null) {
-      for (var y = 0; y < 3; y++) {
+    var listLen = castList.length
+    if (castList.length !== 0) {
+      if (listLen > 3) {
+        listLen = 3
+      }
+      for (var y = 0; y < listLen; y++) {
         top3Cast.push(<span key={y}>{castList[y].name}</span>)
       }
       return top3Cast
@@ -155,6 +199,7 @@ export class SingleSlider extends React.Component {
       return top3Cast
     }
   }
+
   showDate (date) {
     const Month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
     var dateList = date.split('-')
@@ -171,33 +216,33 @@ export class SingleSlider extends React.Component {
     const { movieInfo, mediaType, store } = this.props
     var collectIndexStatus
     if (mediaType === 'mov') {
-      collectIndexStatus = store.movieCollections.indexOf(movieInfo.id)
-      this.setState({liked: collectIndexStatus !== -1})
+      collectIndexStatus = store.movieCollections.has(movieInfo.id)
+      this.setState({liked: collectIndexStatus})
     } else {
-      collectIndexStatus = store.tvCollections.indexOf(movieInfo.id)
-      this.setState({liked: collectIndexStatus !== -1})
+      collectIndexStatus = store.tvCollections.has(movieInfo.id)
+      this.setState({liked: collectIndexStatus})
     }
   }
 
   changeLike () {
     const { movieInfo, mediaType, store } = this.props
-    var collectIndex
+    var status
     if (mediaType === 'mov') {
-      collectIndex = store.movieCollections.indexOf(movieInfo.id)
-      if (collectIndex === -1) {
-        store.movieCollections.push(movieInfo.id)
+      status = store.movieCollections.has(movieInfo.id)
+      if (!status) {
+        store.movieCollections.set(movieInfo.id.toString(), movieInfo)
         this.setState({liked: true})
       } else {
-        store.movieCollections.splice(collectIndex, 1)
+        store.movieCollections.delete(movieInfo.id.toString())
         this.setState({liked: false})
       }
     } else {
-      collectIndex = store.tvCollections.indexOf(movieInfo.id)
-      if (collectIndex === -1) {
-        store.tvCollections.push(movieInfo.id)
+      status = store.tvCollections.has(movieInfo.id)
+      if (!status) {
+        store.tvCollections.set(movieInfo.id.toString(), movieInfo)
         this.setState({liked: true})
       } else {
-        store.tvCollections.splice(collectIndex, 1)
+        store.tvCollections.delete(movieInfo.id.toString())
         this.setState({liked: false})
       }
     }
@@ -208,7 +253,6 @@ export class SingleSlider extends React.Component {
     if (movieInfo == null) {
       return (<div />)
     } else {
-      this.renderCounter += 1
       const bkImage = {
         background: "linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('https://image.tmdb.org/t/p/w1000" + movieInfo.backdrop_path + "')"
       }
@@ -216,11 +260,15 @@ export class SingleSlider extends React.Component {
       var likeButton = null
       if (singleSlide) {
         var trailerList = movieInfo.videos.results.slice()
-        var youtubeUrl = 'https://www.youtube.com/embed/' + trailerList[0].key + '?playlist='
-        trailerList.shift()
-        trailerList.forEach((mvId) => { youtubeUrl = youtubeUrl + mvId.key + ',' })
-        youtubeUrl = youtubeUrl + '&autoplay=1'
-        trailerButton = <a href='#trailerDiv' onClick={this.playTrailer.bind(this, youtubeUrl)} className='trailerButton'><i className='fa fa-film' />Play Trailer</a>
+        if (trailerList.length > 0) {
+          var youtubeUrl = 'https://www.youtube.com/embed/' + trailerList[0].key + '?playlist='
+          trailerList.shift()
+          trailerList.forEach((mvId) => { youtubeUrl = youtubeUrl + mvId.key + ',' })
+          youtubeUrl = youtubeUrl + '&autoplay=1'
+          trailerButton = <a href='#trailerDiv' onClick={this.playTrailer.bind(this, youtubeUrl)} className='trailerButton'><i className='fa fa-film' />Play Trailer</a>
+        } else {
+          trailerButton = <div className='noTrailer'><button disabled className='trailerButton'><i className='fa fa-film' />Play Trailer</button><span className='tooltipTrailer'>Sorry, no trailer available</span></div>
+        }
         if (this.state.liked) {
           likeButton = (<div className='likeButton' onClick={this.changeLike.bind(this)}><a className='liked'>
             <i className='fa fa-heart' /></a>
@@ -237,18 +285,18 @@ export class SingleSlider extends React.Component {
       return (
         <div>
           <div className='sliderSp' style={bkImage}>
-            <NavLink className='navLink poster-img' to={'/movie/' + movieInfo.id}>
+            <NavLink className='navLink poster-img' to={this.mediaType === 'mov' ? '/movie/' + movieInfo.id : '/tv/' + movieInfo.id}>
               <img src={'https://image.tmdb.org/t/p/w500/' + movieInfo.poster_path} />
             </NavLink>
             <div className='intro'>
-              <div className='title'>{movieInfo.title}</div>
+              <div className='title'>{this.mediaType === 'mov' ? movieInfo.title : movieInfo.name}</div>
               <div className='vote'>{this.vote(movieInfo.vote_average)}</div>
               <p className='cast'>{this.showTop3Cast(singleSlide ? movieInfo.credits.cast : movieInfo.cast)}</p>
               <p className='overview'>{movieInfo.overview}</p>
               <p className='genres'>{this.showGenre(genre)}</p>
-              <p className='runtime'>{movieInfo.runtime}</p>
+              <p className='runtime'>{this.mediaType === 'mov' ? '\u00A0' + movieInfo.runtime + ' MIN |' : null}&nbsp;</p>
               <p className='language'>{movieInfo.original_language.toUpperCase()}</p>
-              <p className='date'>{this.showDate(movieInfo.release_date)}</p>
+              <p className='date'>{this.props.mediaType === 'mov' ? this.showDate(movieInfo.release_date) : this.showDate(movieInfo.first_air_date)}</p>
               <br />
               {trailerButton}
               {likeButton}

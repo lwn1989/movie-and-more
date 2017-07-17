@@ -38,7 +38,6 @@ export default class RateStars extends React.Component {
         icons.push(<i key={'g' + j} className='fa fa-star' style={greyStarStyle} />)
       }
     }
-    console.log(icons)
     return (
       <div>
         {icons}

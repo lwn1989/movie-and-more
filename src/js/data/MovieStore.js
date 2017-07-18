@@ -9,7 +9,7 @@ class MovieStore {
   @observable popularMovies = []
   @observable playMovies = []
   @observable topMovies = []
-  @observable movieCollections = []
+  movieCollections = observable.map({})
   @observable pendingRequests = 0
   @observable searchResult = []
 
@@ -72,7 +72,11 @@ class MovieStore {
 }
 
 var movieStore = window.store = new MovieStore()
-movieStore.getMovieList('pop')
-movieStore.getMovieList('play')
-movieStore.getMovieList('top')
+const updateInfo = () => {
+  movieStore.getMovieList('pop')
+  movieStore.getMovieList('play')
+  movieStore.getMovieList('top')
+}
+updateInfo()
+setInterval(updateInfo, 300000)
 export default movieStore

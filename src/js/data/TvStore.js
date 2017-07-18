@@ -9,7 +9,7 @@ class TvStore {
   @observable popularTvs = []
   @observable playTvs = []
   @observable topTvs = []
-  @observable tvCollections = []
+  tvCollections = observable.map({})
   @observable pendingRequests = 0
   @observable searchResult = []
 
@@ -73,7 +73,11 @@ class TvStore {
 }
 
 var tvStore = window.store = new TvStore()
-tvStore.getTvList('pop')
-tvStore.getTvList('air')
-tvStore.getTvList('top')
+const updateInfo = () => {
+  tvStore.getTvList('pop')
+  tvStore.getTvList('air')
+  tvStore.getTvList('top')
+}
+updateInfo()
+setInterval(updateInfo, 300000)
 export default tvStore

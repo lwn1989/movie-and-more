@@ -14,7 +14,8 @@ const Footer = () => (
     </div>
     <div className='copyright'>
       <p className='icon'>MOVIE <span>&</span> MORE</p>
-      <p className='cp'>©2017 Movies & More. All Rights Reserved.</p>
+      <img src='../../../img/dblogo.png' />
+      <p className='cp'>©2017 Movies & More. Designed and Coded by <a className='github' href='https://github.com/lwn1989/movie-and-more'>Weinan Li</a>. All Rights Reserved.</p>
       <a href='#'>Terms of Service</a>
       <a href='#'>Privacy Policy</a>
     </div>

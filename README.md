@@ -6,7 +6,7 @@ This is a movie website which is also a single page app coded with ReactJs. It i
 <img src="/sc_images/second_video.gif?raw=true" width="700px">
 
 ## Languages and tools
-Html, CSS, Javascript, ReactJs, Mobx, react-router-dom..
+Html, SCSS, Javascript, ReactJs, Mobx, react-router-dom..
 ## API
 The v3 API of [The Movie DB](https://www.themoviedb.org)
 ## The running version

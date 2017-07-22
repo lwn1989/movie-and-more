@@ -1,5 +1,5 @@
-# Movie & More website
-This is a movie website which is also a single page app coded with ReactJs. It is responsive, easy to use. The data is obtained using the movie DB API and processed by Mobx, and can be updated each 5 minutes automatically. Users can get the information of latest movies and TV shows, save the movies and shows to the collection and search the content they want.       
+# Movie & More Website(SPA)
+This is a movie website which is also a single page app coded with ReactJs. It is responsive, easy to use. The data is obtained using the movie DB API and processed by Mobx, and can be updated each 5 minutes automatically. Users can get the information of latest movies and TV shows, save the movies and shows to the collection and search the content they want.     
 
 +<img src="/sc_images/first_video.gif?raw=true" width="200px">
 +<img src="/sc_images/second_video.gif?raw=true" width="200px">

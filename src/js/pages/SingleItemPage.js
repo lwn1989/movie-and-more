@@ -17,11 +17,13 @@ export default class SingleItemPage extends React.Component {
     this.state = {itemId: this.itemId}
   }
   componentWillReceiveProps (nextProps) {
-    this.itemId = nextProps.match.params.itemId
-    this.mediaType = (nextProps.match.url[1] === 'm') ? 'mov' : 'tv'
-    this.itemStore = new SingleItemStore({ 'itemId': this.itemId, 'mediaType': this.mediaType })
-    this.itemStore.getItemInfo()
-    this.state = {itemId: this.itemId}
+    if (nextProps.match.params.itemId !== this.itemId) {
+      this.itemId = nextProps.match.params.itemId
+      this.mediaType = (nextProps.match.url[1] === 'm') ? 'mov' : 'tv'
+      this.itemStore = new SingleItemStore({ 'itemId': this.itemId, 'mediaType': this.mediaType })
+      this.itemStore.getItemInfo()
+      this.state = {itemId: this.itemId}
+    }
   }
 
   checkObjEmpty (obj) {

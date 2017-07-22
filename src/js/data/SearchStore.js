@@ -6,13 +6,14 @@ class SearchStore {
     this.apiKey = '93416e1b68a4d757c96e68f2cd22c215'
   }
 
-  @observable searchResult = {}
+  @observable searchResult = []
   @observable searchKey = null
 
   getInfo () {
-    var searchUrl = 'https://api.themoviedb.org/3/search/multi?' + this.apiKey + '&language=en-US&query=' + encodeURI(this.searchKey) + '&page=1&include_adult=false'
+    var searchUrl = 'https://api.themoviedb.org/3/search/multi?api_key=' + this.apiKey + '&language=en-US&query=' + encodeURI(this.searchKey) + '&page=1&include_adult=false'
     axios.get(searchUrl).then((response) => {
-      this.searchResult = Object.assign({}, response.results)
+      console.log(response)
+      this.searchResult = response.data.results.slice()
     }).catch((error) => {
       console.log(error)
     })

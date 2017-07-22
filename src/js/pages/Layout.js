@@ -4,12 +4,10 @@ import { Route, Switch } from 'react-router-dom'
 import MovieIndex from './MovieIndex.js'
 import SingleItemPage from './SingleItemPage.js'
 import TvShow from './TvShow'
+import Collection from './Collection.js'
+import SearchIndex from './SearchIndex.js'
 import Footer from '../components/Layout/Footer'
 import Nav from '../components/Layout/Nav'
-// import movieStore from '../data/MovieStore.js'
-// import Favorites from './Favorites'
-// import Movie from './Movie'
-// import TvShow from './TvShow'
 
 const Layout = (props) => {
   return (
@@ -19,8 +17,11 @@ const Layout = (props) => {
       <Switch>
         <Route path='/movie/:itemId' component={SingleItemPage} />
         <Route path='/movie' component={MovieIndex} />
+        <Route path='/tv/:itemId' component={SingleItemPage} />
+        <Route path='/tv' component={TvShow} />
+        <Route path='/collection' component={Collection} />
+        <Route path='/search' component={SearchIndex} />
       </Switch>
-      <Route path='/tvShow' component={TvShow} />
       <Footer />
     </div>
   )

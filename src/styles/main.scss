@@ -10,6 +10,9 @@ $main-font: 'Muli', sans-serif;
 @import "./components/_movieList.scss";
 @import "./components/_singleListItem.scss";
 @import "./components/_singleItemPage.scss";
+@import "./components/_mainInfo.scss";
+@import "./components/_collection.scss";
+@import "./components/_searchBlock.scss";
 
 body {
   font-family: 'Muli', sans-serif;

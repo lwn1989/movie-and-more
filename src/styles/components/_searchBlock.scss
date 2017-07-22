@@ -1,0 +1,66 @@
+.searchBlock {
+  background-color: #85144b;
+  padding-top: 1rem;
+
+  .pageTitle {
+    font-size: 1.5rem;
+    color: #ff851b;
+    margin-left: calc(0.5rem + 20px);
+    margin-bottom: 0;
+  }
+  .resultList {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+    
+    .fail {
+      font-size: 1.3rem;
+      text-align: center;
+      color: white;
+    }
+
+    li {
+      border: 2px solid #ff851b;
+      padding: 0.5rem 0.5rem;
+      border-radius: 5px;
+      margin: 10px 0;
+
+      &:hover {
+        margin-top: 0;
+        margin-bottom: 20px;
+        box-shadow: 1px 5px 5px 5px #420a25;
+        border-color: yellow;
+      }
+
+      .result {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        &:link, &:visited, &:hover {
+          color: white;
+          text-decoration: none;
+        }
+    }
+
+      img {
+        align-self: center; 
+        width: 10rem;
+        height: auto;
+        margin-right: 0.5rem;
+      }
+
+      .intro {
+        margin-left: 0.5rem;
+        .name {
+          font-size: 1.3rem;
+          color: #ff851b;
+        }
+        .overview {
+          max-height: 3.6rem;
+          overflow: auto;
+        }
+
+      }
+    }
+  }
+}

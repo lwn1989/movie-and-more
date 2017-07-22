@@ -1,0 +1,104 @@
+.Collections {
+  background-image: url(/img/keyart.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: $grey-text;
+  height: 40rem;
+  @include md-dp{
+    height: 80rem;
+  }
+
+  .title {
+    display: inline-block;
+    color: white;
+    margin-left: 2rem;
+    text-shadow: 0 2px black;
+    font-size: 1.5rem;
+    background-color: #bb080e;
+    padding: 0.75rem;
+    border-radius: 0 0 5px 5px;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    @include md-dp {
+      flex-wrap: wrap;
+    }
+
+    .movieCollections, .tvCollections {
+      margin: 1rem;
+      .collectionTitle {
+        font-size: 1rem;
+        font-weight: bold;
+        color: $light-text;
+        .titleIcon {
+          color: $grey-text;
+          &:after {
+            content: '\00a0\00a0'
+          }
+        }
+      }
+      .collectionList {
+        margin-top: 0.75rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow-x: visible;
+        overflow-y: auto;
+        align-content: flex-start;
+        height: 30.5rem;
+        width: 27rem;
+        
+        .eachItem {
+          position: relative;
+          &:hover {
+            .liked {
+              width: 8rem;
+              height: 12rem;
+              z-index: 2;
+              margin-bottom:-3rem;
+              margin-right: -2rem;
+            }
+            .deleteLike {
+              display: inline-block;
+              width: 2rem;
+              height: 2rem;
+            }
+          }
+        }
+
+        img {
+          margin: 0.125rem;
+          height:9rem;
+          width: 6rem;
+          border-radius:2px;
+          z-index:0;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .deleteLike {
+          display:none;
+          color: white;
+          text-align: center;
+          background-color:rgba(0, 0, 0, 0.4);
+          position: absolute;
+          border: none;
+          width:0px;
+          top:0.125rem;
+          right: -2rem;
+          height:0;
+          z-index:2;
+          overflow: hidden;
+          &:focus {
+            outline: none;
+          }
+          &:hover{
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}

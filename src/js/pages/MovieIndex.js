@@ -8,7 +8,7 @@ export default class MovieIndex extends React.Component {
     return (
       <div>
         <MoveSlider store={movieStore} />
-        <MovieList store={movieStore} />
+        <MovieList mediaType='mov' store={movieStore} />
       </div>
     )
   }

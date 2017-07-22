@@ -186,8 +186,9 @@ export class SingleSlider extends React.Component {
 
   showTop3Cast (castList) {
     var top3Cast = []
+    castList = castList == null ? [] : castList
     var listLen = castList.length
-    if (castList.length !== 0) {
+    if (listLen !== 0) {
       if (listLen > 3) {
         listLen = 3
       }
@@ -201,12 +202,16 @@ export class SingleSlider extends React.Component {
   }
 
   showDate (date) {
-    const Month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
-    var dateList = date.split('-')
-    var year = dateList[0]
-    var monthAbb = Month[parseInt(dateList[1]) - 1]
-    var day = dateList[2]
-    return (day + ' ' + monthAbb + ' ' + year)
+    if (date == null) {
+      return null
+    } else {
+      const Month = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
+      var dateList = date.split('-')
+      var year = dateList[0]
+      var monthAbb = Month[parseInt(dateList[1]) - 1]
+      var day = dateList[2]
+      return (day + ' ' + monthAbb + ' ' + year)
+    }
   }
   playTrailer (youtubeUrl) {
     this.setState({trailer: <iframe id='trailerDiv' allowFullScreen='allowFullScreen' width='100%' height='500' src={youtubeUrl} >Your Browser does not support iframes</iframe>})

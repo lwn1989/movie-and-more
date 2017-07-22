@@ -10,8 +10,9 @@ import { SingleSlider } from '../components/movie/MovieSlider.js'
 export default class SingleItemPage extends React.Component {
   constructor (props) {
     super()
+    console.log(props)
     this.itemId = props.match.params.itemId
-    this.mediaType = (props.match.url[1] === 'm') ? 'mov' : 'tv'
+    this.mediaType = (props.match.url[10] === 'm') ? 'mov' : 'tv'
     this.itemStore = new SingleItemStore({ 'itemId': this.itemId, 'mediaType': this.mediaType })
     this.itemStore.getItemInfo()
     this.state = {itemId: this.itemId}
@@ -19,7 +20,7 @@ export default class SingleItemPage extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.match.params.itemId !== this.itemId) {
       this.itemId = nextProps.match.params.itemId
-      this.mediaType = (nextProps.match.url[1] === 'm') ? 'mov' : 'tv'
+      this.mediaType = (nextProps.match.url[10] === 'm') ? 'mov' : 'tv'
       this.itemStore = new SingleItemStore({ 'itemId': this.itemId, 'mediaType': this.mediaType })
       this.itemStore.getItemInfo()
       this.state = {itemId: this.itemId}

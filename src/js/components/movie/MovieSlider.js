@@ -290,7 +290,7 @@ export class SingleSlider extends React.Component {
       return (
         <div>
           <div className='sliderSp' style={bkImage}>
-            <NavLink className='navLink poster-img' to={this.mediaType === 'mov' ? '/movie/' + movieInfo.id : '/tv/' + movieInfo.id}>
+            <NavLink className='navLink poster-img' to={this.mediaType === 'mov' ? '/movieApp/movie/' + movieInfo.id : '/movieApp/tv/' + movieInfo.id}>
               <img src={'https://image.tmdb.org/t/p/w500/' + movieInfo.poster_path} />
             </NavLink>
             <div className='intro'>

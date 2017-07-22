@@ -16,7 +16,7 @@ export default class SearchIndex extends React.Component {
       jsxItems = searchStore.searchResult.map((res, ind) =>
       res.media_type === 'tv' || res.media_type === 'movie'
       ? (<li key={ind}>
-        <NavLink className='result' to={res.media_type === 'tv' ? '/tv/' + res.id : '/movie/' + res.id}>
+        <NavLink className='result' to={res.media_type === 'tv' ? '/movieApp/tv/' + res.id : '/movieApp/movie/' + res.id}>
           {res.poster_path == null ? null : <img src={'https://image.tmdb.org/t/p/w500' + res.poster_path} alt='No poster image' />}
           <div className='intro'>
             <p className='name'>

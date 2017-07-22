@@ -23,7 +23,7 @@ export default (env = defaultEnv) => ({
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.min.js',
-    publicPath: '/'
+    publicPath: '/movieApp/'
   },
 
   plugins: [
@@ -89,7 +89,11 @@ export default (env = defaultEnv) => ({
   },
 
   devServer: {
-    hot: env.dev
+    hot: env.dev,
+    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/movieApp/'
+    }
   }
 
 })

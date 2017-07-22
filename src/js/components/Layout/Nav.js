@@ -38,7 +38,7 @@ export default class Nav extends React.Component {
       <div>
         <div className='header'>
           <div className='site-name'>
-            <NavLink className='navlink siteNameNav' to='/'>
+            <NavLink className='navlink siteNameNav' to='/movieApp/'>
               MOVIE <span>&</span> MORE
             </NavLink>
           </div>
@@ -47,14 +47,14 @@ export default class Nav extends React.Component {
           </a>
           <nav className={navClass}>
             <ul>
-              <li><NavLink className='navlink' exact to='/' onClick={this.toggleClass.bind(this)}>Movie</NavLink></li>
-              <li><NavLink className='navlink' to='/tv' onClick={this.toggleClass.bind(this)}>TV Show</NavLink></li>
-              <li><NavLink className='navlink' to='/collection' onClick={this.toggleClass.bind(this)}>Collection</NavLink></li>
+              <li><NavLink className='navlink' exact to='/movieApp/' onClick={this.toggleClass.bind(this)}>Movie</NavLink></li>
+              <li><NavLink className='navlink' to='/movieApp/tv' onClick={this.toggleClass.bind(this)}>TV Show</NavLink></li>
+              <li><NavLink className='navlink' to='/movieApp/collection' onClick={this.toggleClass.bind(this)}>Collection</NavLink></li>
               <li className='search-bar'><input type='search' placeholder='Search' id='search-key' onKeyPress={this.readInput.bind(this)} /><button onClick={this.readInput.bind(this)} className='fa fa-search btn-search' /></li>
             </ul>
           </nav>
         </div>
-        { this.state.redirectToSearch > this.compareValue ? <Redirect to='/search' /> : null }
+        { this.state.redirectToSearch > this.compareValue ? <Redirect to='/movieApp/search' /> : null }
       </div>
     )
   }

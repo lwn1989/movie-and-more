@@ -59,7 +59,7 @@ export default class Collection extends React.Component {
             Movie
             </div>
             <div className='collectionList'>
-              { movieList.map((addr, index) => (movieIdList[index] === '-1' ? <NavLink key={index} to='/'><img className='blankItem' key={index} src={addr} /></NavLink> : <NavLink className='eachItem' key={index} to={'/movie/' + movieIdList[index]}><img key={index} src={addr} className='liked' /><button className='deleteLike' onClick={this.deleteLike.bind(this, movieIdList[index], 'mov')} ><i className='fa fa-trash' /></button></NavLink>)) }
+              { movieList.map((addr, index) => (movieIdList[index] === '-1' ? <NavLink key={index} to='/movieApp/'><img className='blankItem' key={index} src={addr} /></NavLink> : <NavLink className='eachItem' key={index} to={'/movieApp/movie/' + movieIdList[index]}><img key={index} src={addr} className='liked' /><button className='deleteLike' onClick={this.deleteLike.bind(this, movieIdList[index], 'mov')} ><i className='fa fa-trash' /></button></NavLink>)) }
             </div>
           </div>
           <div className='tvCollections'>
@@ -68,7 +68,7 @@ export default class Collection extends React.Component {
             TV Show
           </div>
             <div className='collectionList'>
-              { tvList.map((addr, index) => (tvIdList[index] === '-1' ? <NavLink key={index} to='/tv'><img className='blankItem' key={index} src={addr} /></NavLink> : <NavLink className='eachItem' key={index} to={'/tv/' + tvIdList[index]}><img key={index} src={addr} className='liked' /><button className='deleteLike' onClick={this.deleteLike.bind(this, tvIdList[index], 'tv')}><i className='fa fa-trash' /></button></NavLink>)) }
+              { tvList.map((addr, index) => (tvIdList[index] === '-1' ? <NavLink key={index} to='/movieApp/tv'><img className='blankItem' key={index} src={addr} /></NavLink> : <NavLink className='eachItem' key={index} to={'/movieApp/tv/' + tvIdList[index]}><img key={index} src={addr} className='liked' /><button className='deleteLike' onClick={this.deleteLike.bind(this, tvIdList[index], 'tv')}><i className='fa fa-trash' /></button></NavLink>)) }
             </div>
           </div>
         </div>

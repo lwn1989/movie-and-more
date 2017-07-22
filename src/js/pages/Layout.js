@@ -13,14 +13,14 @@ const Layout = (props) => {
   return (
     <div>
       <Nav />
-      <Route exact path='/' component={MovieIndex} />
+      <Route exact path='/movieApp/' component={MovieIndex} />
       <Switch>
-        <Route path='/movie/:itemId' component={SingleItemPage} />
-        <Route path='/movie' component={MovieIndex} />
-        <Route path='/tv/:itemId' component={SingleItemPage} />
-        <Route path='/tv' component={TvShow} />
-        <Route path='/collection' component={Collection} />
-        <Route path='/search' component={SearchIndex} />
+        <Route path='/movieApp/movie/:itemId' component={SingleItemPage} />
+        <Route path='/movieApp/movie' component={MovieIndex} />
+        <Route path='/movieApp/tv/:itemId' component={SingleItemPage} />
+        <Route path='/movieApp/tv' component={TvShow} />
+        <Route path='/movieApp/collection' component={Collection} />
+        <Route path='/movieApp/search' component={SearchIndex} />
       </Switch>
       <Footer />
     </div>

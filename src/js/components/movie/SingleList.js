@@ -88,7 +88,7 @@ export default class SingleList extends React.Component {
             { tmpContents.map((mov, index) => {
               return (
                 <li key={index} className='itemListItem'>
-                  <NavLink className='navLink poster-img' to={this.props.mediaType === 'mov' ? '/movie/' + mov.id : '/tv/' + mov.id}>
+                  <NavLink className='navLink poster-img' to={this.props.mediaType === 'mov' ? '/movieApp/movie/' + mov.id : '/movieApp/tv/' + mov.id}>
                     <img src={'https://image.tmdb.org/t/p/w500/' + mov.poster_path} />
                     <p className='listItemTitle'>{this.props.mediaType === 'mov' ? mov.title : mov.name}</p>
                     <RateStars rate={mov.vote_average} />

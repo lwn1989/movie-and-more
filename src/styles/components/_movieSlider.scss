@@ -85,6 +85,8 @@
         font-weight: 300;
         @include sm-dp {
           font-size: 2.3vh;
+          max-height: 8.4rem;
+          overflow: auto;
         }
       }
       .genres {

@@ -15,11 +15,14 @@
     align-items: center;
     .poster-img {
       height: 20rem;
-      width: 15rem;
+      width: auto;
       img {
         height: 100%; 
         border-radius: 5px;
       }
+    }
+    @include sm-dp {
+      height: 30rem;
     }
     .intro {
       width: 40%;
@@ -31,6 +34,9 @@
         font-size: 1.5rem;
         color: $light-text;
         display: inline-block;
+        @include sm-dp {
+          font-size: 1rem;
+        }
       }
       .vote {
         display: inline-block;
@@ -57,16 +63,25 @@
             }
           }
         }
+        @include sm-dp {
+          font-size: 1rem;
+        }
       }
       .overview {
         color: $light-text;
         height: 5rem;
         overflow: auto;
+        @include sm-dp {
+          font-size: 0.9rem;
+        }
       }
       .genres, .runtime, .language, .date {
         color: white;
         display: inline-block;
         margin: 0;
+        @include sm-dp {
+          font-size: 0.95rem;
+        }
       }
       .genres {
         &:after {
@@ -130,6 +145,7 @@
       .trailerButton {
         font-family: $main-font;
         padding: 8px 13px;
+        position: relative;
         border-radius: 30px;
         display: inline-block;
         width: 7rem;
@@ -158,7 +174,11 @@
       .likeButton {
         display: inline-block;
         position: relative;
-        margin-left: 1rem;
+        left: 0.8rem;
+        @media (max-width: 455px) {
+          top: 1rem;
+          left: 0;
+        }
         a {
           transition: all 0.7s ease;
           border: 1.5px solid $light-green;

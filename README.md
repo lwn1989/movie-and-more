@@ -5,10 +5,15 @@ This is a movie website which is also a single page app coded with ReactJs. It i
 
 <img src="/sc_images/second_video.gif?raw=true" width="700px">
 
+On android phone:
+<img src="/sc_images/1.png" width="300px">
+<img src="/sc_images/2.png" width="300px">
+<img src="/sc_images/3.png" width="300px">
+
 ## Languages and tools
 Html, SCSS, Javascript, ReactJs, Mobx, react-router-dom..
 ## API
 The v3 API of [The Movie DB](https://www.themoviedb.org)
 ## The running version
-to be updated
+Click this [link](http://ec2-52-58-218-132.eu-central-1.compute.amazonaws.com:9000/movieApp/)
 

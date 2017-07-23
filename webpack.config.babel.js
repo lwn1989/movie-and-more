@@ -61,16 +61,9 @@ export default (env = defaultEnv) => ({
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'img/'
-            }
-          }, {
-            loader: 'image-webpack-loader'
-          }
+        loaders: [
+          'file-loader?name=img/[name].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
       {
@@ -90,7 +83,6 @@ export default (env = defaultEnv) => ({
 
   devServer: {
     hot: env.dev,
-    historyApiFallback: true,
     historyApiFallback: {
       index: '/movieApp/'
     }

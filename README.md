@@ -5,7 +5,7 @@ This is a movie website which is also a single page app coded with ReactJs. It i
 
 <img src="/sc_images/second_video.gif?raw=true" width="700px">
 
-On android phone:
+On android phone:      
 <img src="/sc_images/1.png" width="300px">
 <img src="/sc_images/2.png" width="300px">
 <img src="/sc_images/3.png" width="300px">

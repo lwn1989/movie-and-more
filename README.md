@@ -15,5 +15,5 @@ Html, SCSS, Javascript, ReactJs, Mobx, react-router-dom..
 ## API
 The v3 API of [The Movie DB](https://www.themoviedb.org)
 ## The running version
-Click this [link](http://ec2-52-58-218-132.eu-central-1.compute.amazonaws.com:9000/movieApp/)
+Click this [link](http://weinanli.com/movieApp/)
 
